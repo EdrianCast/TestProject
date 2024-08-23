@@ -81,39 +81,49 @@ namespace TestProject
             driver.FindElement(By.Name("Name")).SendKeys("Jurado Angel");
             driver.FindElement(By.Name("EMail")).SendKeys("AngelJuradoC@gmail.com");
             driver.FindElement(By.Name("Telephone")).SendKeys("6864044483");
-            driver.FindElement(By.Name("Gender")).Click();
+            driver.FindElement(By.Name("Boy")).Click();
 
             var selectElement = driver.FindElement(By.Name("Age"));
-            var select = new SelectElement(selectElement); select.SelectByText("4");
+            var select = new SelectElement(selectElement);
+            select.SelectByText("4");
 
-            var selectElement2 = driver.FindElement(By.Name("Servie"));
-            var select2 = new SelectElement(selectElement2); select2.SelectByText("Child Care");
+            var selectElement2 = driver.FindElement(By.Name("Service")); // Asegúrate de que este es el nombre correcto
+            var select2 = new SelectElement(selectElement2);
+            select2.SelectByText("Child Care");
 
-            driver.FindElement(By.Name("Submit")).Submit();
-            Thread.Sleep(1000);
+            driver.FindElement(By.Name("Submit")).Click(); // Mejor usar Click() en lugar de Submit()
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.AlertIsPresent());
             driver.SwitchTo().Alert().Accept();
         }
+
 
         [Test]
         public void multiplewind()
         {
             string originalWin = driver.CurrentWindowHandle;
             driver.Navigate().GoToUrl("https://www.alberta.ca/child-care-subsidy#jumpslinks-4");
-            driver.FindElement(By.LinkText("online subsidy estimator"));
+            driver.FindElement(By.LinkText("online subsidy estimator")).Click(); // Falta el .Click() para abrir la nueva ventana
+
             foreach (string window in driver.WindowHandles)
             {
-                if (originalWin != window) ;
+                if (originalWin != window)
                 {
                     driver.SwitchTo().Window(window);
                     break;
                 }
             }
-            //diver.Manage().Timeouts().ImpliciWait = TimeSpan.FromSeconds(5);
+
+            // driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+
             Assert.That(driver.FindElement(By.XPath("/html/body/form/div/div[2]/div/div[2]/h1")).Text, Is.EqualTo("Child Care Subsidy Estimator"));
 
             /* WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-             * Assert.That(wait.Until(ExpectedConditions.ElementIsVisisble(By.XPath("/html/body/form/div/div[2]/h1"))).Text, IsEqualTo("Child Care Subsidy Estimator)); */
+             * Assert.That(wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[2]/h1"))).Text, Is.EqualTo("Child Care Subsidy Estimator"));
+             */
         }
+
 
         [Test]
         public void WebElementText()
