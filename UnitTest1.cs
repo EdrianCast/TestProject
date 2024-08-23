@@ -42,8 +42,8 @@ namespace TestProject
         {
             driver.Navigate().GoToUrl("https://admlucid.com/Home/WebElements");
 
-            driver.FindElement(By.Id("TextArea2")).Clear();
-            driver.FindElement(By.Id("TexteArea2")).SendKeys("If you want to create robust, browser");
+            driver.FindElement(By.Name("TextArea2")).Clear();
+            driver.FindElement(By.Name("TextArea2")).SendKeys("If you want to create robust, browser");
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace TestProject
         {
             driver.Navigate().GoToUrl("https://admlucid.com/Home/WebElements");
 
-            driver.FindElement(By.CssSelector("#File")).SendKeys(@"");
+            driver.FindElement(By.CssSelector("#File4")).SendKeys(@"C:\Users\neola\OneDrive\Escritorio\Tipos de prueba de software.docx");
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace TestProject
             driver.Navigate().GoToUrl("https://admlucid.com/Home/WebElements");
 
             driver.FindElement(By.Name("Name")).SendKeys("Jurado Angel");
-            driver.FindElement(By.Name("Email")).SendKeys("AngelJuradoC@gmail.com");
+            driver.FindElement(By.Name("EMail")).SendKeys("AngelJuradoC@gmail.com");
             driver.FindElement(By.Name("Telephone")).SendKeys("6864044483");
             driver.FindElement(By.Name("Gender")).Click();
 
@@ -109,7 +109,7 @@ namespace TestProject
                 }
             }
             //diver.Manage().Timeouts().ImpliciWait = TimeSpan.FromSeconds(5);
-            Assert.That(driver.FindElement(By.XPath("/html/body/form/div/div[2]/h1")).Text, Is.EqualTo("Child Care Subsidy Estimator"));
+            Assert.That(driver.FindElement(By.XPath("/html/body/form/div/div[2]/div/div[2]/h1")).Text, Is.EqualTo("Child Care Subsidy Estimator"));
 
             /* WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
              * Assert.That(wait.Until(ExpectedConditions.ElementIsVisisble(By.XPath("/html/body/form/div/div[2]/h1"))).Text, IsEqualTo("Child Care Subsidy Estimator)); */
